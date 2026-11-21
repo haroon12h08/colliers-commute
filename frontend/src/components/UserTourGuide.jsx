@@ -12,7 +12,8 @@ import {
   FileSpreadsheet,
   CheckCircle2,
   Compass,
-  ArrowRight
+  Minimize2,
+  Maximize2
 } from 'lucide-react';
 
 export const TOUR_STEPS = [
@@ -133,6 +134,7 @@ export default function UserTourGuide({
   setActiveTab
 }) {
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
+  const [isMinimized, setIsMinimized] = useState(false);
 
   // Synchronize active left panel tab with tour step
   useEffect(() => {
@@ -171,14 +173,125 @@ export default function UserTourGuide({
     onClose();
   };
 
+  // Minimized Compact HUD Bar (docked at the bottom center of the map region)
+  if (isMinimized) {
+    return (
+      <div
+        style={{
+          position: 'absolute',
+          bottom: 20,
+          left: '50%',
+          transform: 'translateX(-50%)',
+          width: '90%',
+          maxWidth: 620,
+          backgroundColor: '#000759',
+          borderRadius: 4,
+          border: '1px solid #1C54F4',
+          boxShadow: '0 8px 30px rgba(0, 7, 89, 0.4)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          padding: '8px 16px',
+          zIndex: 90,
+          pointerEvents: 'auto'
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+          <span
+            style={{
+              backgroundColor: '#1C54F4',
+              color: '#FFFFFF',
+              fontSize: '9px',
+              fontWeight: 700,
+              padding: '2px 6px',
+              borderRadius: 2
+            }}
+          >
+            Step {currentStepIndex + 1}/{TOUR_STEPS.length}
+          </span>
+          <span style={{ fontSize: '12px', fontWeight: 600, color: '#FFFFFF' }}>
+            {step.title}
+          </span>
+        </div>
+
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          {!isFirstStep && (
+            <button
+              onClick={handlePrev}
+              style={{
+                background: 'transparent',
+                border: '1px solid rgba(219, 229, 255, 0.3)',
+                color: '#DBE5FF',
+                padding: '4px 8px',
+                borderRadius: 2,
+                fontSize: '11px',
+                cursor: 'pointer'
+              }}
+            >
+              Prev
+            </button>
+          )}
+
+          <button
+            onClick={handleNext}
+            style={{
+              backgroundColor: '#1C54F4',
+              border: 'none',
+              color: '#FFFFFF',
+              padding: '4px 10px',
+              borderRadius: 2,
+              fontSize: '11px',
+              fontWeight: 600,
+              cursor: 'pointer'
+            }}
+          >
+            {isLastStep ? 'Done' : 'Next'}
+          </button>
+
+          <button
+            onClick={() => setIsMinimized(false)}
+            style={{
+              background: 'transparent',
+              border: 'none',
+              color: '#DBE5FF',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              padding: 4
+            }}
+            title="Expand Full Instructions"
+          >
+            <Maximize2 size={15} />
+          </button>
+
+          <button
+            onClick={handleComplete}
+            style={{
+              background: 'transparent',
+              border: 'none',
+              color: '#DBE5FF',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              padding: 4
+            }}
+            title="Close Guide"
+          >
+            <X size={15} />
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  // Centered Floating HUD Card strictly inside the Map Region (Zero Blur on Side Panel)
   return (
     <div
       style={{
-        position: 'fixed',
+        position: 'absolute',
         inset: 0,
-        backgroundColor: 'rgba(0, 7, 89, 0.72)',
-        backdropFilter: 'blur(3px)',
-        zIndex: 1000,
+        zIndex: 90,
+        pointerEvents: 'none',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -188,22 +301,24 @@ export default function UserTourGuide({
       <div
         style={{
           width: '100%',
-          maxWidth: 620,
+          maxWidth: 540,
+          maxHeight: '85vh',
           backgroundColor: '#FFFFFF',
           borderRadius: 4,
           border: '1px solid #C6D7FE',
-          boxShadow: '0 20px 50px rgba(0, 7, 89, 0.35)',
+          boxShadow: '0 16px 45px rgba(0, 7, 89, 0.28)',
           display: 'flex',
           flexDirection: 'column',
           overflow: 'hidden',
+          pointerEvents: 'auto',
           animation: 'fadeIn 0.2s ease-out'
         }}
       >
-        {/* Top Executive Header Banner */}
+        {/* Top Header Banner */}
         <div
           style={{
             backgroundColor: '#000759',
-            padding: '16px 24px',
+            padding: '12px 20px',
             borderBottom: '2px solid #1C54F4',
             display: 'flex',
             justifyContent: 'space-between',
@@ -217,44 +332,61 @@ export default function UserTourGuide({
                 color: '#FFFFFF',
                 fontSize: '10px',
                 fontWeight: 700,
-                letterSpacing: '1px',
-                padding: '3px 8px',
+                letterSpacing: '0.8px',
+                padding: '2px 7px',
                 borderRadius: 2,
                 textTransform: 'uppercase'
               }}
             >
-              Ms. Vijaya&apos;s User Guide
+              Ms. Vijaya&apos;s Guide
             </span>
             <span style={{ fontSize: '11px', color: '#DBE5FF' }}>
               Step {currentStepIndex + 1} of {TOUR_STEPS.length}
             </span>
           </div>
 
-          <button
-            onClick={handleComplete}
-            style={{
-              background: 'transparent',
-              border: 'none',
-              color: '#DBE5FF',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              padding: 4
-            }}
-            title="Skip Tour"
-          >
-            <X size={18} />
-          </button>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+            <button
+              onClick={() => setIsMinimized(true)}
+              style={{
+                background: 'transparent',
+                border: 'none',
+                color: '#DBE5FF',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                padding: 4
+              }}
+              title="Minimize Guide to Bottom Bar"
+            >
+              <Minimize2 size={15} />
+            </button>
+            <button
+              onClick={handleComplete}
+              style={{
+                background: 'transparent',
+                border: 'none',
+                color: '#DBE5FF',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                padding: 4
+              }}
+              title="Close Guide"
+            >
+              <X size={16} />
+            </button>
+          </div>
         </div>
 
         {/* Tour Body */}
-        <div style={{ padding: '24px 28px', maxHeight: '70vh', overflowY: 'auto' }}>
+        <div style={{ padding: '20px 24px', overflowY: 'auto', flex: 1 }}>
           {/* Kicker & Title */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 6 }}>
             <div
               style={{
-                width: 36,
-                height: 36,
+                width: 34,
+                height: 34,
                 borderRadius: 3,
                 backgroundColor: '#EDF2FF',
                 border: '1px solid #DBE5FF',
@@ -265,14 +397,14 @@ export default function UserTourGuide({
                 flexShrink: 0
               }}
             >
-              <StepIcon size={20} />
+              <StepIcon size={18} />
             </div>
             <div>
               <div
                 style={{
-                  fontSize: '10px',
+                  fontSize: '9px',
                   fontWeight: 700,
-                  letterSpacing: '1px',
+                  letterSpacing: '0.8px',
                   color: '#25408F',
                   textTransform: 'uppercase'
                 }}
@@ -281,7 +413,7 @@ export default function UserTourGuide({
               </div>
               <h2
                 style={{
-                  fontSize: '18px',
+                  fontSize: '16px',
                   fontWeight: 700,
                   color: '#000759',
                   lineHeight: 1.3,
@@ -296,11 +428,11 @@ export default function UserTourGuide({
           {/* High-level Summary Paragraph */}
           <p
             style={{
-              fontSize: '13px',
+              fontSize: '12px',
               color: '#272B30',
-              lineHeight: 1.55,
-              marginTop: 12,
-              marginBottom: 16
+              lineHeight: 1.5,
+              marginTop: 10,
+              marginBottom: 12
             }}
           >
             {step.summary}
@@ -312,30 +444,30 @@ export default function UserTourGuide({
               backgroundColor: '#F8F9FA',
               border: '1px solid #EBEBEE',
               borderRadius: 3,
-              padding: '12px 16px',
-              marginBottom: 16
+              padding: '10px 14px',
+              marginBottom: 12
             }}
           >
             <div
               style={{
-                fontSize: '10px',
+                fontSize: '9px',
                 fontWeight: 700,
-                letterSpacing: '0.8px',
+                letterSpacing: '0.6px',
                 color: '#525255',
                 textTransform: 'uppercase',
-                marginBottom: 8
+                marginBottom: 6
               }}
             >
               Key Capabilities &amp; Observations
             </div>
-            <ul style={{ paddingLeft: 18, margin: 0, display: 'flex', flexDirection: 'column', gap: 6 }}>
+            <ul style={{ paddingLeft: 16, margin: 0, display: 'flex', flexDirection: 'column', gap: 5 }}>
               {step.details.map((detail, idx) => (
                 <li
                   key={idx}
                   style={{
-                    fontSize: '12px',
+                    fontSize: '11px',
                     color: '#272B30',
-                    lineHeight: 1.45
+                    lineHeight: 1.4
                   }}
                 >
                   {detail}
@@ -353,15 +485,15 @@ export default function UserTourGuide({
               borderRight: '1px solid #DBE5FF',
               borderBottom: '1px solid #DBE5FF',
               borderRadius: 3,
-              padding: '10px 14px',
+              padding: '8px 12px',
               display: 'flex',
               alignItems: 'flex-start',
-              gap: 10
+              gap: 8
             }}
           >
-            <Sparkles size={16} color="#1C54F4" style={{ flexShrink: 0, marginTop: 1 }} />
-            <div style={{ fontSize: '11px', color: '#000759', lineHeight: 1.45 }}>
-              <strong style={{ fontWeight: 700 }}>Pro-Tip for Ms. Vijaya: </strong>
+            <Sparkles size={15} color="#1C54F4" style={{ flexShrink: 0, marginTop: 1 }} />
+            <div style={{ fontSize: '11px', color: '#000759', lineHeight: 1.4 }}>
+              <strong style={{ fontWeight: 700 }}>Pro-Tip: </strong>
               {step.advisoryTip}
             </div>
           </div>
@@ -370,7 +502,7 @@ export default function UserTourGuide({
         {/* Footer Navigation Bar */}
         <div
           style={{
-            padding: '14px 24px',
+            padding: '10px 20px',
             backgroundColor: '#F8F9FA',
             borderTop: '1px solid #EBEBEE',
             display: 'flex',
@@ -379,15 +511,15 @@ export default function UserTourGuide({
           }}
         >
           {/* Progress Dots Indicator */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
             {TOUR_STEPS.map((_, idx) => (
               <button
                 key={idx}
                 onClick={() => setCurrentStepIndex(idx)}
                 style={{
-                  width: idx === currentStepIndex ? 18 : 6,
-                  height: 6,
-                  borderRadius: 3,
+                  width: idx === currentStepIndex ? 16 : 5,
+                  height: 5,
+                  borderRadius: 2,
                   backgroundColor: idx === currentStepIndex ? '#1C54F4' : '#CCCDD5',
                   border: 'none',
                   cursor: 'pointer',
@@ -400,7 +532,7 @@ export default function UserTourGuide({
           </div>
 
           {/* Action Buttons */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
             <button
               onClick={handleComplete}
               style={{
@@ -410,10 +542,10 @@ export default function UserTourGuide({
                 fontSize: '11px',
                 fontWeight: 600,
                 cursor: 'pointer',
-                padding: '0 8px'
+                padding: '0 6px'
               }}
             >
-              Skip Tour
+              Skip
             </button>
 
             {!isFirstStep && (
@@ -421,15 +553,15 @@ export default function UserTourGuide({
                 onClick={handlePrev}
                 className="colliers-btn-secondary"
                 style={{
-                  height: '32px',
-                  padding: '0 12px',
+                  height: '28px',
+                  padding: '0 10px',
                   fontSize: '11px',
                   display: 'inline-flex',
                   alignItems: 'center',
-                  gap: 4
+                  gap: 3
                 }}
               >
-                <ChevronLeft size={14} />
+                <ChevronLeft size={13} />
                 <span>Back</span>
               </button>
             )}
@@ -438,17 +570,17 @@ export default function UserTourGuide({
               onClick={handleNext}
               className="colliers-btn-primary"
               style={{
-                height: '32px',
-                padding: '0 16px',
+                height: '28px',
+                padding: '0 12px',
                 fontSize: '11px',
                 fontWeight: 600,
                 display: 'inline-flex',
                 alignItems: 'center',
-                gap: 6
+                gap: 5
               }}
             >
-              <span>{isLastStep ? 'Complete Guide' : 'Next Step'}</span>
-              {isLastStep ? <CheckCircle2 size={14} /> : <ChevronRight size={14} />}
+              <span>{isLastStep ? 'Done' : 'Next'}</span>
+              {isLastStep ? <CheckCircle2 size={13} /> : <ChevronRight size={13} />}
             </button>
           </div>
         </div>

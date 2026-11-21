@@ -203,7 +203,7 @@ export default function App() {
           onStartTour={() => setIsTourOpen(true)}
         />
 
-        <div style={{ flex: 1, height: '100%', position: 'relative' }}>
+        <div style={{ flex: 1, height: '100%', position: 'relative', overflow: 'hidden' }}>
           <MapView
             selectedCity={selectedCity}
             offices={offices}
@@ -217,16 +217,16 @@ export default function App() {
             visibleLayers={visibleLayers}
             onToggleLayer={handleToggleLayer}
           />
+
+          {/* Interactive Guided Product Tour for Ms. Vijaya - Floating exclusively inside map region */}
+          <UserTourGuide
+            isOpen={isTourOpen}
+            onClose={() => setIsTourOpen(false)}
+            activeTab={activeTab}
+            setActiveTab={setActiveTab}
+          />
         </div>
       </div>
-
-      {/* Interactive Guided Product Tour for Ms. Vijaya */}
-      <UserTourGuide
-        isOpen={isTourOpen}
-        onClose={() => setIsTourOpen(false)}
-        activeTab={activeTab}
-        setActiveTab={setActiveTab}
-      />
 
       {/* Full-Screen Master Spreadsheet & Analytics Modal Overlay */}
       {isDatabaseModalOpen && (
