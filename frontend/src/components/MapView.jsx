@@ -241,10 +241,18 @@ function getEmployeeRealRoute(emp, selectedOffice) {
 
   // Exact pre-built real-world corridor route from HUB_ROUTES for all 15 offices
   const routeKey = `${hubId}:${selectedOffice.id}:${routeType}`;
-  const corridor = HUB_ROUTES[routeKey];
+  let corridor = HUB_ROUTES[routeKey];
+  if (!corridor || !corridor.coords || corridor.coords.length === 0) {
+    corridor = HUB_ROUTES[`${hubId}:${selectedOffice.id}:road`] || HUB_ROUTES[`${hubId}:${selectedOffice.id}:rail`];
+  }
 
   if (corridor && corridor.coords && corridor.coords.length > 0) {
-    const path = [[emp.longitude, emp.latitude], ...corridor.coords];
+    // Exact path: Doorstep origin -> High-Resolution Turn-by-Turn Corridor -> Office Building Pin
+    const path = [
+      [emp.longitude, emp.latitude],
+      ...corridor.coords,
+      [selectedOffice.longitude, selectedOffice.latitude]
+    ];
     return {
       path,
       distanceKm: corridor.dist,
