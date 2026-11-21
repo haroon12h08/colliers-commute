@@ -4,6 +4,7 @@ import Sidebar from './components/Sidebar';
 import MapView from './components/MapView';
 import ScorecardModal from './components/ScorecardModal';
 import WorkforceDatabase from './components/WorkforceDatabase';
+import UserTourGuide from './components/UserTourGuide';
 import { FALLBACK_CITIES, FALLBACK_OFFICES, FALLBACK_SCORECARDS } from './data/fallbackData';
 import { WORKFORCE_1500 } from './data/workforceData';
 
@@ -39,6 +40,13 @@ export default function App() {
   const [isComparisonOpen, setIsComparisonOpen] = useState(false);
   const [isDatabaseModalOpen, setIsDatabaseModalOpen] = useState(false);
   const [activeTab, setActiveTab] = useState('properties');
+  const [isTourOpen, setIsTourOpen] = useState(() => {
+    try {
+      return !localStorage.getItem('colliers_commute_tour_v1');
+    } catch (_) {
+      return true;
+    }
+  });
 
   const [visibleLayers, setVisibleLayers] = useState({
     heatmap: true,
@@ -167,6 +175,7 @@ export default function App() {
         onOpenComparison={() => setIsComparisonOpen(true)}
         activeTab={activeTab}
         setActiveTab={setActiveTab}
+        onStartTour={() => setIsTourOpen(true)}
       />
 
       {/* Main GIS Map & Dynamic Left Panel Workspace */}
@@ -191,6 +200,7 @@ export default function App() {
           selectedEmployee={selectedEmployee}
           onSelectEmployee={setSelectedEmployee}
           centerOfGravity={centerOfGravity}
+          onStartTour={() => setIsTourOpen(true)}
         />
 
         <div style={{ flex: 1, height: '100%', position: 'relative' }}>
@@ -209,6 +219,14 @@ export default function App() {
           />
         </div>
       </div>
+
+      {/* Interactive Guided Product Tour for Ms. Vijaya */}
+      <UserTourGuide
+        isOpen={isTourOpen}
+        onClose={() => setIsTourOpen(false)}
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+      />
 
       {/* Full-Screen Master Spreadsheet & Analytics Modal Overlay */}
       {isDatabaseModalOpen && (

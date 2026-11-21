@@ -1,4 +1,5 @@
 import React from 'react';
+import { Compass, Sparkles } from 'lucide-react';
 
 export default function Navbar({
   cities,
@@ -6,7 +7,8 @@ export default function Navbar({
   onSelectCity,
   onOpenComparison,
   activeTab,
-  setActiveTab
+  setActiveTab,
+  onStartTour
 }) {
   return (
     <header
@@ -125,6 +127,30 @@ export default function Navbar({
             );
           })}
         </div>
+
+        {/* User Guide & Tour Trigger for Ms. Vijaya */}
+        <button
+          onClick={onStartTour}
+          style={{
+            height: '30px',
+            padding: '0 11px',
+            fontSize: '11px',
+            fontWeight: 600,
+            color: '#FFFFFF',
+            backgroundColor: 'rgba(28, 84, 244, 0.28)',
+            border: '1px solid rgba(219, 229, 255, 0.45)',
+            borderRadius: 'var(--colliers-radius-xs)',
+            cursor: 'pointer',
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 6,
+            transition: 'all 0.15s ease'
+          }}
+          title="Open interactive walkthrough & user guide for Ms. Vijaya"
+        >
+          <Compass size={14} color="#DBE5FF" />
+          <span>User Guide</span>
+        </button>
 
         {/* Matrix Comparison Action */}
         <button

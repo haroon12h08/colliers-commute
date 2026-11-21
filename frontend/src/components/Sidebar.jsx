@@ -56,7 +56,8 @@ export default function Sidebar({
   employees = [],
   selectedEmployee,
   onSelectEmployee,
-  centerOfGravity
+  centerOfGravity,
+  onStartTour
 }) {
   // Local search & filter states
   const [propertySearch, setPropertySearch] = useState('');
@@ -213,28 +214,47 @@ export default function Sidebar({
           <div
             style={{
               padding: '16px 20px 14px 20px',
-              borderBottom: '1px solid rgba(219, 229, 255, 0.14)',
-              backgroundColor: 'rgba(37, 64, 143, 0.12)'
+              borderBottom: '1px solid rgba(219, 229, 255, 0.18)',
+              backgroundColor: 'rgba(219, 229, 255, 0.08)'
             }}
           >
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
               <div className="colliers-kicker" style={{ color: '#DBE5FF' }}>
                 COMMERCIAL TECH PARKS ({filteredOffices.length})
               </div>
-              <span style={{ fontSize: '11px', color: '#DBE5FF' }}>
-                Metro: <strong style={{ color: '#FFFFFF' }}>{selectedCity.name}</strong>
+              <span
+                style={{
+                  fontSize: '11px',
+                  color: '#000759',
+                  backgroundColor: '#EDF2FF',
+                  border: '1px solid #DBE5FF',
+                  padding: '2px 8px',
+                  borderRadius: 2
+                }}
+              >
+                Metro: <strong style={{ color: '#000759' }}>{selectedCity.name}</strong>
               </span>
             </div>
 
             <div style={{ position: 'relative' }}>
-              <Search size={14} color="#DBE5FF" style={{ position: 'absolute', top: 10, left: 10 }} />
+              <Search size={14} color="#1C54F4" style={{ position: 'absolute', top: 10, left: 10 }} />
               <input
                 type="text"
                 placeholder="Filter campus name or micro-market..."
                 value={propertySearch}
                 onChange={(e) => setPropertySearch(e.target.value)}
-                className="colliers-input colliers-input-dark"
-                style={{ height: '34px', paddingLeft: '32px', fontSize: '12px' }}
+                style={{
+                  width: '100%',
+                  height: '34px',
+                  paddingLeft: '32px',
+                  paddingRight: '28px',
+                  fontSize: '12px',
+                  backgroundColor: '#FFFFFF',
+                  color: '#000759',
+                  border: '1px solid #DBE5FF',
+                  borderRadius: 3,
+                  outline: 'none'
+                }}
               />
               {propertySearch && (
                 <button
@@ -245,7 +265,7 @@ export default function Sidebar({
                     right: 8,
                     background: 'transparent',
                     border: 'none',
-                    color: '#DBE5FF',
+                    color: '#525255',
                     cursor: 'pointer'
                   }}
                 >
@@ -255,31 +275,69 @@ export default function Sidebar({
             </div>
           </div>
 
-          {/* Market Benchmarks Strip */}
+          {/* Market Benchmarks Strip: 3 Crisp White Metric Cards */}
           <div
             style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(3, 1fr)',
-              padding: '10px 20px',
-              backgroundColor: 'rgba(0, 7, 89, 0.4)',
-              borderBottom: '1px solid rgba(219, 229, 255, 0.12)',
-              fontSize: '11px'
+              gap: 8,
+              padding: '12px 16px',
+              backgroundColor: 'rgba(219, 229, 255, 0.06)',
+              borderBottom: '1px solid rgba(219, 229, 255, 0.16)'
             }}
           >
-            <div>
-              <span style={{ display: 'block', color: '#DBE5FF', fontSize: '10px', textTransform: 'uppercase' }}>Avg Market Rent</span>
-              <span className="tabular-nums" style={{ color: '#FFFFFF', fontWeight: 600, fontSize: '13px' }}>₹{avgRent}</span>
-              <span style={{ color: '#DBE5FF', fontSize: '10px' }}> /sqft</span>
+            <div
+              style={{
+                backgroundColor: '#FFFFFF',
+                borderRadius: 3,
+                border: '1px solid #DBE5FF',
+                padding: '8px 10px',
+                boxShadow: '0 1px 3px rgba(0, 7, 89, 0.08)'
+              }}
+            >
+              <span style={{ display: 'block', color: '#25408F', fontSize: '9px', fontWeight: 700, letterSpacing: '0.6px', textTransform: 'uppercase' }}>
+                Avg Rent
+              </span>
+              <span className="tabular-nums" style={{ color: '#000759', fontWeight: 800, fontSize: '15px' }}>
+                ₹{avgRent}
+              </span>
+              <span style={{ color: '#1C54F4', fontSize: '10px', fontWeight: 600 }}> /sqft</span>
             </div>
-            <div>
-              <span style={{ display: 'block', color: '#DBE5FF', fontSize: '10px', textTransform: 'uppercase' }}>Sample Pool</span>
-              <span className="tabular-nums" style={{ color: '#FFFFFF', fontWeight: 600, fontSize: '13px' }}>{cityEmployees.length}</span>
-              <span style={{ color: '#DBE5FF', fontSize: '10px' }}> staff</span>
+
+            <div
+              style={{
+                backgroundColor: '#FFFFFF',
+                borderRadius: 3,
+                border: '1px solid #DBE5FF',
+                padding: '8px 10px',
+                boxShadow: '0 1px 3px rgba(0, 7, 89, 0.08)'
+              }}
+            >
+              <span style={{ display: 'block', color: '#25408F', fontSize: '9px', fontWeight: 700, letterSpacing: '0.6px', textTransform: 'uppercase' }}>
+                Sample Pool
+              </span>
+              <span className="tabular-nums" style={{ color: '#000759', fontWeight: 800, fontSize: '15px' }}>
+                {cityEmployees.length}
+              </span>
+              <span style={{ color: '#059669', fontSize: '10px', fontWeight: 600 }}> staff</span>
             </div>
-            <div>
-              <span style={{ display: 'block', color: '#DBE5FF', fontSize: '10px', textTransform: 'uppercase' }}>Prime Hubs</span>
-              <span className="tabular-nums" style={{ color: '#FFFFFF', fontWeight: 600, fontSize: '13px' }}>{offices.length}</span>
-              <span style={{ color: '#DBE5FF', fontSize: '10px' }}> sites</span>
+
+            <div
+              style={{
+                backgroundColor: '#FFFFFF',
+                borderRadius: 3,
+                border: '1px solid #DBE5FF',
+                padding: '8px 10px',
+                boxShadow: '0 1px 3px rgba(0, 7, 89, 0.08)'
+              }}
+            >
+              <span style={{ display: 'block', color: '#25408F', fontSize: '9px', fontWeight: 700, letterSpacing: '0.6px', textTransform: 'uppercase' }}>
+                Prime Hubs
+              </span>
+              <span className="tabular-nums" style={{ color: '#000759', fontWeight: 800, fontSize: '15px' }}>
+                {offices.length}
+              </span>
+              <span style={{ color: '#1C54F4', fontSize: '10px', fontWeight: 600 }}> Grade-A</span>
             </div>
           </div>
 
@@ -287,17 +345,20 @@ export default function Sidebar({
           {selectedEmployee && (
             <div
               style={{
-                padding: '12px 20px',
-                backgroundColor: 'rgba(5, 150, 105, 0.18)',
-                borderBottom: '1px solid rgba(5, 150, 105, 0.4)',
-                borderLeft: '3px solid #10B981',
+                margin: '10px 16px',
+                padding: '12px 14px',
+                backgroundColor: '#FFFFFF',
+                border: '1px solid #10B981',
+                borderLeft: '4px solid #10B981',
+                borderRadius: 3,
+                boxShadow: '0 2px 6px rgba(0, 7, 89, 0.1)',
                 display: 'flex',
                 flexDirection: 'column',
                 gap: 4
               }}
             >
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <span style={{ fontSize: '10px', fontWeight: 700, color: '#10B981', letterSpacing: '0.8px', textTransform: 'uppercase' }}>
+                <span style={{ fontSize: '10px', fontWeight: 700, color: '#059669', letterSpacing: '0.8px', textTransform: 'uppercase' }}>
                   DOORSTEP ROUTE FOCUS
                 </span>
                 <button
@@ -305,7 +366,7 @@ export default function Sidebar({
                   style={{
                     background: 'transparent',
                     border: 'none',
-                    color: '#DBE5FF',
+                    color: '#7A7B80',
                     fontSize: '11px',
                     cursor: 'pointer',
                     textDecoration: 'underline'
@@ -314,10 +375,10 @@ export default function Sidebar({
                   Clear Focus
                 </button>
               </div>
-              <div style={{ fontSize: '13px', fontWeight: 600, color: '#FFFFFF' }}>
+              <div style={{ fontSize: '13px', fontWeight: 700, color: '#000759' }}>
                 {selectedEmployee.fullName} ({selectedEmployee.employeeId})
               </div>
-              <div style={{ fontSize: '11px', color: '#DBE5FF' }}>
+              <div style={{ fontSize: '11px', color: '#525255' }}>
                 {selectedEmployee.residentialAddress || selectedEmployee.residentialLocality}
               </div>
             </div>
@@ -327,14 +388,13 @@ export default function Sidebar({
           <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column' }}>
             <div
               style={{
-                padding: '12px 20px 8px 20px',
+                padding: '12px 16px 8px 16px',
                 display: 'flex',
                 justifyContent: 'space-between',
-                alignItems: 'center',
-                borderBottom: '1px solid rgba(219, 229, 255, 0.1)'
+                alignItems: 'center'
               }}
             >
-              <span className="colliers-kicker" style={{ color: '#FFFFFF' }}>
+              <span className="colliers-kicker" style={{ color: '#DBE5FF' }}>
                 SELECT CANDIDATE CAMPUS
               </span>
               <button
@@ -356,19 +416,116 @@ export default function Sidebar({
               </button>
             </div>
 
-            {/* Flat Rows for 5 Tech Parks */}
-            <div>
+            {/* Elevated Tech Park Cards */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 6, padding: '0 12px 10px 12px' }}>
               {filteredOffices.map((office) => {
                 const isSelected = selectedOffice?.id === office.id;
                 const sc = (scorecards || []).find(s => s.officeId === office.id);
                 const avgCommute = sc ? sc.avgCommuteMins : office.avgCommuteMins;
                 const pctReach = sc ? sc.pctUnder45Mins : `${office.pctUnder45Mins}%`;
 
+                if (isSelected) {
+                  // High-Contrast Crisp White Selected Card
+                  return (
+                    <div
+                      key={office.id}
+                      onClick={() => onSelectOffice(office)}
+                      style={{
+                        backgroundColor: '#FFFFFF',
+                        border: '1px solid #C6D7FE',
+                        borderLeft: '4px solid #1C54F4',
+                        borderRadius: 3,
+                        padding: '12px 14px',
+                        cursor: 'pointer',
+                        boxShadow: '0 3px 10px rgba(0, 7, 89, 0.16)',
+                        transition: 'all 0.15s ease'
+                      }}
+                    >
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                        <div>
+                          <div style={{ fontSize: '13px', fontWeight: 700, color: '#000759' }}>
+                            {office.name}
+                          </div>
+                          <div style={{ fontSize: '11px', color: '#525255', marginTop: 2 }}>
+                            {office.microMarket} • <strong style={{ color: '#1C54F4' }}>{office.grade}</strong>
+                          </div>
+                        </div>
+                        <div style={{ textAlign: 'right' }}>
+                          <div className="tabular-nums" style={{ fontSize: '15px', fontWeight: 800, color: '#1C54F4' }}>
+                            ₹{office.rentPerSqft}
+                          </div>
+                          <div style={{ fontSize: '10px', color: '#7A7B80' }}>/sqft/mo</div>
+                        </div>
+                      </div>
+
+                      <div
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'space-between',
+                          marginTop: 10,
+                          gap: 8
+                        }}
+                      >
+                        <div
+                          style={{
+                            flex: 1,
+                            backgroundColor: '#EDF2FF',
+                            border: '1px solid #DBE5FF',
+                            padding: '4px 8px',
+                            borderRadius: 2,
+                            fontSize: '11px',
+                            color: '#000759'
+                          }}
+                        >
+                          Avg Commute: <strong className="tabular-nums" style={{ color: '#D97706' }}>{avgCommute} mins</strong>
+                        </div>
+                        <div
+                          style={{
+                            flex: 1,
+                            backgroundColor: '#EDF2FF',
+                            border: '1px solid #DBE5FF',
+                            padding: '4px 8px',
+                            borderRadius: 2,
+                            fontSize: '11px',
+                            color: '#000759',
+                            textAlign: 'right'
+                          }}
+                        >
+                          &lt;45m Reach: <strong className="tabular-nums" style={{ color: '#059669' }}>{pctReach}</strong>
+                        </div>
+                      </div>
+
+                      {/* Area & LEED specs badge */}
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 8, fontSize: '10px', color: '#525255' }}>
+                        <span>Area: <strong style={{ color: '#000759' }}>{office.totalAreaSqft || 'N/A'}</strong></span>
+                        <span>•</span>
+                        <span>LEED: <strong style={{ color: '#059669' }}>{office.leedRating || 'Certified'}</strong></span>
+                      </div>
+
+                      <div style={{ fontSize: '10px', color: '#1C54F4', fontWeight: 700, marginTop: 6, display: 'flex', alignItems: 'center', gap: 6 }}>
+                        <span style={{ width: 6, height: 6, borderRadius: '50%', backgroundColor: '#1C54F4', display: 'inline-block' }} />
+                        <span>Active Target Campus ({cityEmployees.length} Transit Corridors)</span>
+                      </div>
+                    </div>
+                  );
+                }
+
+                // Unselected Tech Park Row
                 return (
                   <div
                     key={office.id}
                     onClick={() => onSelectOffice(office)}
-                    className={`colliers-site-row ${isSelected ? 'active' : ''}`}
+                    style={{
+                      backgroundColor: 'rgba(219, 229, 255, 0.05)',
+                      border: '1px solid rgba(219, 229, 255, 0.12)',
+                      borderRadius: 3,
+                      padding: '10px 14px',
+                      cursor: 'pointer',
+                      transition: 'background-color 0.15s ease'
+                    }}
+                    onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'rgba(219, 229, 255, 0.12)')}
+                    onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'rgba(219, 229, 255, 0.05)')}
                   >
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                       <div>
@@ -380,7 +537,7 @@ export default function Sidebar({
                         </div>
                       </div>
                       <div style={{ textAlign: 'right' }}>
-                        <div className="tabular-nums" style={{ fontSize: '14px', fontWeight: 700, color: '#38BDF8' }}>
+                        <div className="tabular-nums" style={{ fontSize: '14px', fontWeight: 700, color: '#93C5FD' }}>
                           ₹{office.rentPerSqft}
                         </div>
                         <div style={{ fontSize: '10px', color: '#DBE5FF' }}>/sqft/mo</div>
@@ -392,53 +549,58 @@ export default function Sidebar({
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'space-between',
-                        marginTop: 8,
+                        marginTop: 6,
                         fontSize: '11px',
                         color: '#DBE5FF'
                       }}
                     >
                       <div>
-                        Avg Commute: <strong className="tabular-nums" style={{ color: '#F59E0B' }}>{avgCommute} mins</strong>
+                        Avg Commute: <strong className="tabular-nums" style={{ color: '#FCD34D' }}>{avgCommute} mins</strong>
                       </div>
                       <div>
-                        &lt;45m Reach: <strong className="tabular-nums" style={{ color: '#00F5D4' }}>{pctReach}</strong>
+                        &lt;45m Reach: <strong className="tabular-nums" style={{ color: '#6EE7B7' }}>{pctReach}</strong>
                       </div>
                     </div>
-
-                    {/* Area & LEED specs badge */}
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 6, fontSize: '10px', color: '#94A3B8' }}>
-                      <span>Campus Area: <strong style={{ color: '#FFFFFF' }}>{office.totalAreaSqft || 'N/A'}</strong></span>
-                      <span>•</span>
-                      <span>LEED: <strong style={{ color: '#10B981' }}>{office.leedRating || 'Certified'}</strong></span>
-                    </div>
-
-                    {isSelected && (
-                      <div style={{ fontSize: '10px', color: '#00F5D4', fontWeight: 600, marginTop: 6, display: 'flex', alignItems: 'center', gap: 6 }}>
-                        <span style={{ width: 6, height: 6, borderRadius: '50%', backgroundColor: '#00F5D4', display: 'inline-block' }} />
-                        <span>Active Campus ({cityEmployees.length} Real-World Transit Corridors)</span>
-                      </div>
-                    )}
                   </div>
                 );
               })}
             </div>
 
-            {/* Selected Campus Detail Spotlight */}
+            {/* Selected Campus Detail Spotlight: Crisp White Card */}
             {selectedOffice && (
-              <div style={{ borderTop: '1px solid rgba(219, 229, 255, 0.14)', padding: '16px 20px', backgroundColor: 'rgba(37, 64, 143, 0.12)' }}>
+              <div
+                style={{
+                  margin: '6px 12px 14px 12px',
+                  padding: '14px 16px',
+                  backgroundColor: '#FFFFFF',
+                  borderRadius: 4,
+                  border: '1px solid #C6D7FE',
+                  boxShadow: '0 2px 6px rgba(0, 7, 89, 0.12)'
+                }}
+              >
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                  <span className="colliers-kicker" style={{ color: '#FFFFFF' }}>
+                  <span
+                    style={{
+                      fontSize: '10px',
+                      fontWeight: 700,
+                      letterSpacing: '0.8px',
+                      color: '#25408F',
+                      textTransform: 'uppercase'
+                    }}
+                  >
                     CAMPUS TRANSIT &amp; ESG HIGHLIGHTS
                   </span>
                   <button
                     onClick={() => setActiveTab('isochrones')}
                     style={{
-                      background: 'transparent',
+                      background: '#1C54F4',
                       border: 'none',
-                      color: '#38BDF8',
-                      fontSize: '11px',
-                      cursor: 'pointer',
-                      fontWeight: 600
+                      color: '#FFFFFF',
+                      fontSize: '10px',
+                      fontWeight: 600,
+                      padding: '3px 8px',
+                      borderRadius: 2,
+                      cursor: 'pointer'
                     }}
                   >
                     View Catchment →
@@ -451,9 +613,10 @@ export default function Sidebar({
                       key={i}
                       style={{
                         fontSize: '10px',
-                        color: '#DBE5FF',
-                        backgroundColor: 'rgba(28, 84, 244, 0.25)',
-                        border: '1px solid rgba(28, 84, 244, 0.45)',
+                        fontWeight: 600,
+                        color: '#000759',
+                        backgroundColor: '#EDF2FF',
+                        border: '1px solid #C6D7FE',
                         padding: '3px 8px',
                         borderRadius: 2
                       }}
@@ -518,18 +681,18 @@ export default function Sidebar({
           <div
             style={{
               padding: '16px 20px 14px 20px',
-              borderBottom: '1px solid rgba(219, 229, 255, 0.14)',
-              backgroundColor: 'rgba(37, 64, 143, 0.12)'
+              borderBottom: '1px solid rgba(219, 229, 255, 0.18)',
+              backgroundColor: 'rgba(219, 229, 255, 0.08)'
             }}
           >
             <div className="colliers-kicker" style={{ color: '#DBE5FF', marginBottom: 6 }}>
               COMMUTE CATCHMENTS &amp; ISOCHRONES
             </div>
-            <div style={{ fontSize: '11px', color: '#DBE5FF', marginBottom: 8 }}>
+            <div style={{ fontSize: '11px', color: '#DBE5FF', marginBottom: 10 }}>
               Multi-band travel time contours mapped to employee doorstep distribution
             </div>
 
-            {/* Target Campus Dropdown Selector */}
+            {/* Target Campus Dropdown Selector: Crisp White Select */}
             <div style={{ position: 'relative' }}>
               <select
                 value={selectedOffice?.id}
@@ -537,11 +700,22 @@ export default function Sidebar({
                   const target = offices.find(o => o.id === e.target.value);
                   if (target) onSelectOffice(target);
                 }}
-                className="colliers-input colliers-input-dark"
-                style={{ height: '36px', padding: '0 12px', fontSize: '12px', cursor: 'pointer', width: '100%' }}
+                style={{
+                  height: '36px',
+                  padding: '0 12px',
+                  fontSize: '12px',
+                  fontWeight: 600,
+                  cursor: 'pointer',
+                  width: '100%',
+                  backgroundColor: '#FFFFFF',
+                  color: '#000759',
+                  border: '1px solid #DBE5FF',
+                  borderRadius: 3,
+                  outline: 'none'
+                }}
               >
                 {offices.map(o => (
-                  <option key={o.id} value={o.id} style={{ backgroundColor: '#000759', color: '#FFFFFF' }}>
+                  <option key={o.id} value={o.id} style={{ backgroundColor: '#FFFFFF', color: '#000759' }}>
                     {o.name} ({o.microMarket}) — ₹{o.rentPerSqft}/sqft
                   </option>
                 ))}
@@ -549,32 +723,65 @@ export default function Sidebar({
             </div>
           </div>
 
-          {/* Target Campus Key Accessibility KPIs */}
+          {/* Target Campus Key Accessibility KPIs: 3 Crisp White Cards */}
           <div
             style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(3, 1fr)',
-              padding: '10px 20px',
-              backgroundColor: 'rgba(0, 7, 89, 0.4)',
-              borderBottom: '1px solid rgba(219, 229, 255, 0.12)',
-              fontSize: '11px'
+              gap: 8,
+              padding: '12px 16px',
+              backgroundColor: 'rgba(219, 229, 255, 0.06)',
+              borderBottom: '1px solid rgba(219, 229, 255, 0.16)'
             }}
           >
-            <div>
-              <span style={{ display: 'block', color: '#DBE5FF', fontSize: '10px', textTransform: 'uppercase' }}>Avg Travel</span>
-              <span className="tabular-nums" style={{ color: '#F59E0B', fontWeight: 700, fontSize: '13px' }}>
-                {activeScorecard?.avgCommuteMins || selectedOffice?.avgCommuteMins || 32} mins
+            <div
+              style={{
+                backgroundColor: '#FFFFFF',
+                borderRadius: 3,
+                border: '1px solid #DBE5FF',
+                padding: '8px 10px',
+                boxShadow: '0 1px 3px rgba(0, 7, 89, 0.08)'
+              }}
+            >
+              <span style={{ display: 'block', color: '#25408F', fontSize: '9px', fontWeight: 700, letterSpacing: '0.6px', textTransform: 'uppercase' }}>
+                Avg Travel
               </span>
+              <span className="tabular-nums" style={{ color: '#D97706', fontWeight: 800, fontSize: '15px' }}>
+                {activeScorecard?.avgCommuteMins || selectedOffice?.avgCommuteMins || 32}
+              </span>
+              <span style={{ color: '#7A7B80', fontSize: '10px' }}> mins</span>
             </div>
-            <div>
-              <span style={{ display: 'block', color: '#DBE5FF', fontSize: '10px', textTransform: 'uppercase' }}>&lt;45m Reach</span>
-              <span className="tabular-nums" style={{ color: '#00F5D4', fontWeight: 700, fontSize: '13px' }}>
+
+            <div
+              style={{
+                backgroundColor: '#FFFFFF',
+                borderRadius: 3,
+                border: '1px solid #DBE5FF',
+                padding: '8px 10px',
+                boxShadow: '0 1px 3px rgba(0, 7, 89, 0.08)'
+              }}
+            >
+              <span style={{ display: 'block', color: '#25408F', fontSize: '9px', fontWeight: 700, letterSpacing: '0.6px', textTransform: 'uppercase' }}>
+                &lt;45m Reach
+              </span>
+              <span className="tabular-nums" style={{ color: '#059669', fontWeight: 800, fontSize: '15px' }}>
                 {activeScorecard?.pctUnder45Mins || `${selectedOffice?.pctUnder45Mins}%` || '84%'}
               </span>
             </div>
-            <div>
-              <span style={{ display: 'block', color: '#DBE5FF', fontSize: '10px', textTransform: 'uppercase' }}>&lt;30m Core Hub</span>
-              <span className="tabular-nums" style={{ color: '#10B981', fontWeight: 700, fontSize: '13px' }}>
+
+            <div
+              style={{
+                backgroundColor: '#FFFFFF',
+                borderRadius: 3,
+                border: '1px solid #DBE5FF',
+                padding: '8px 10px',
+                boxShadow: '0 1px 3px rgba(0, 7, 89, 0.08)'
+              }}
+            >
+              <span style={{ display: 'block', color: '#25408F', fontSize: '9px', fontWeight: 700, letterSpacing: '0.6px', textTransform: 'uppercase' }}>
+                &lt;30m Core Hub
+              </span>
+              <span className="tabular-nums" style={{ color: '#1C54F4', fontWeight: 800, fontSize: '15px' }}>
                 {activeScorecard?.pctUnder30Mins || '72%'}
               </span>
             </div>
@@ -583,37 +790,56 @@ export default function Sidebar({
           {/* Scrollable Catchment Analysis Content */}
           <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column' }}>
             
-            {/* Travel-Time Isochrone Distribution Table */}
-            <div style={{ padding: '16px 20px' }}>
+            {/* Travel-Time Isochrone Distribution Table: Crisp White Cards */}
+            <div style={{ padding: '14px 16px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
-                <span className="colliers-kicker" style={{ color: '#FFFFFF' }}>
+                <span className="colliers-kicker" style={{ color: '#DBE5FF' }}>
                   ISOCHRONE TRAVEL BRACKETS
                 </span>
-                <span style={{ fontSize: '10px', color: '#DBE5FF' }}>
+                <span
+                  style={{
+                    fontSize: '10px',
+                    fontWeight: 600,
+                    color: '#000759',
+                    backgroundColor: '#EDF2FF',
+                    border: '1px solid #DBE5FF',
+                    padding: '2px 8px',
+                    borderRadius: 2
+                  }}
+                >
                   {cityEmployees.length} Staff Total
                 </span>
               </div>
 
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                 {isochroneDist.map((b, idx) => (
-                  <div key={idx} style={{ backgroundColor: 'rgba(255, 255, 255, 0.03)', border: '1px solid rgba(219, 229, 255, 0.1)', padding: '10px 12px', borderRadius: 3 }}>
+                  <div
+                    key={idx}
+                    style={{
+                      backgroundColor: '#FFFFFF',
+                      border: '1px solid #DBE5FF',
+                      padding: '10px 12px',
+                      borderRadius: 3,
+                      boxShadow: '0 1px 3px rgba(0, 7, 89, 0.06)'
+                    }}
+                  >
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                         <span style={{ width: 10, height: 10, borderRadius: 2, backgroundColor: b.color }} />
-                        <span style={{ fontSize: '12px', fontWeight: 600, color: '#FFFFFF' }}>{b.bracket}</span>
-                        <span style={{ fontSize: '10px', color: '#94A3B8' }}>• {b.tier}</span>
+                        <span style={{ fontSize: '12px', fontWeight: 700, color: '#000759' }}>{b.bracket}</span>
+                        <span style={{ fontSize: '10px', color: '#525255' }}>• {b.tier}</span>
                       </div>
                       <div className="tabular-nums" style={{ fontSize: '12px', fontWeight: 700, color: b.color }}>
-                        {b.pct}% <span style={{ fontSize: '10px', fontWeight: 400, color: '#DBE5FF' }}>({b.count} staff)</span>
+                        {b.pct}% <span style={{ fontSize: '10px', fontWeight: 500, color: '#525255' }}>({b.count} staff)</span>
                       </div>
                     </div>
 
-                    {/* Progress Bar */}
-                    <div style={{ height: 4, width: '100%', backgroundColor: 'rgba(219, 229, 255, 0.12)', borderRadius: 2, marginTop: 8, overflow: 'hidden' }}>
+                    {/* Progress Bar with light blue track */}
+                    <div style={{ height: 4, width: '100%', backgroundColor: '#EDF2FF', borderRadius: 2, marginTop: 8, overflow: 'hidden' }}>
                       <div style={{ height: '100%', width: `${b.pct}%`, backgroundColor: b.color, borderRadius: 2 }} />
                     </div>
 
-                    <div style={{ fontSize: '10px', color: '#94A3B8', marginTop: 5 }}>
+                    <div style={{ fontSize: '10px', color: '#525255', marginTop: 5 }}>
                       {b.description}
                     </div>
                   </div>
@@ -621,28 +847,46 @@ export default function Sidebar({
               </div>
             </div>
 
-            {/* Cumulative Accessibility Summary */}
-            <div style={{ borderTop: '1px solid rgba(219, 229, 255, 0.14)', padding: '16px 20px', backgroundColor: 'rgba(37, 64, 143, 0.12)' }}>
-              <div className="colliers-kicker" style={{ color: '#DBE5FF', marginBottom: 8 }}>
+            {/* Cumulative Accessibility Summary: Crisp White Card */}
+            <div
+              style={{
+                margin: '0 16px 14px 16px',
+                padding: '14px 16px',
+                backgroundColor: '#FFFFFF',
+                borderRadius: 4,
+                border: '1px solid #C6D7FE',
+                boxShadow: '0 2px 6px rgba(0, 7, 89, 0.1)'
+              }}
+            >
+              <div
+                style={{
+                  fontSize: '10px',
+                  fontWeight: 700,
+                  letterSpacing: '0.8px',
+                  color: '#25408F',
+                  textTransform: 'uppercase',
+                  marginBottom: 8
+                }}
+              >
                 CUMULATIVE ACCESSIBILITY BENCHMARK
               </div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 6, fontSize: '11px', color: '#DBE5FF' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 6, fontSize: '11px', color: '#272B30' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                   <span>Within 30-Minute Commute:</span>
-                  <strong className="tabular-nums" style={{ color: '#10B981' }}>
+                  <strong className="tabular-nums" style={{ color: '#059669' }}>
                     {activeScorecard?.pctUnder30Mins || '72%'} of workforce
                   </strong>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                   <span>Within 45-Minute Commute:</span>
-                  <strong className="tabular-nums" style={{ color: '#00F5D4' }}>
+                  <strong className="tabular-nums" style={{ color: '#1C54F4' }}>
                     {activeScorecard?.pctUnder45Mins || '84%'} of workforce
                   </strong>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                   <span>Centroid Proximity:</span>
-                  <strong className="tabular-nums" style={{ color: '#FFFFFF' }}>
-                    {centroidDistKm !== null ? `${centroidDistKm} km from workforce centroid` : 'Optimally centered'}
+                  <strong className="tabular-nums" style={{ color: '#000759' }}>
+                    {centroidDistKm !== null ? `${centroidDistKm} km from optimal centroid` : 'Optimally centered'}
                   </strong>
                 </div>
               </div>
@@ -696,8 +940,8 @@ export default function Sidebar({
           <div
             style={{
               padding: '16px 20px 14px 20px',
-              borderBottom: '1px solid rgba(219, 229, 255, 0.14)',
-              backgroundColor: 'rgba(37, 64, 143, 0.12)'
+              borderBottom: '1px solid rgba(219, 229, 255, 0.18)',
+              backgroundColor: 'rgba(219, 229, 255, 0.08)'
             }}
           >
             <div className="colliers-kicker" style={{ color: '#DBE5FF', marginBottom: 4 }}>
@@ -706,31 +950,34 @@ export default function Sidebar({
             <div style={{ fontSize: '13px', fontWeight: 700, color: '#FFFFFF' }}>
               {selectedCity.name} Commercial Real Estate Brief
             </div>
-            <div style={{ fontSize: '11px', color: '#94A3B8', marginTop: 2 }}>
+            <div style={{ fontSize: '11px', color: '#DBE5FF', marginTop: 2 }}>
               Executive location intelligence &amp; trade-off evaluation
             </div>
           </div>
 
-          {/* Strategic Storyline Brief */}
+          {/* Strategic Storyline Brief: Crisp Elevated White Card */}
           <div
             style={{
-              padding: '14px 20px',
-              backgroundColor: 'rgba(0, 7, 89, 0.5)',
-              borderBottom: '1px solid rgba(219, 229, 255, 0.12)'
+              margin: '12px 14px',
+              padding: '14px 16px',
+              backgroundColor: '#FFFFFF',
+              borderRadius: 4,
+              border: '1px solid #C6D7FE',
+              boxShadow: '0 2px 8px rgba(0, 7, 89, 0.12)'
             }}
           >
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 6 }}>
-              <div style={{ fontSize: '13px', fontWeight: 700, color: '#FFFFFF' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 8, gap: 8 }}>
+              <div style={{ fontSize: '13px', fontWeight: 700, color: '#000759', lineHeight: 1.35 }}>
                 {currentStory.headline}
               </div>
               <span
                 style={{
                   fontSize: '10px',
                   fontWeight: 700,
-                  color: '#10B981',
-                  backgroundColor: 'rgba(16, 185, 129, 0.15)',
-                  border: '1px solid rgba(16, 185, 129, 0.4)',
-                  padding: '2px 6px',
+                  color: '#1C54F4',
+                  backgroundColor: '#EDF2FF',
+                  border: '1px solid #C6D7FE',
+                  padding: '3px 8px',
                   borderRadius: 2,
                   whiteSpace: 'nowrap'
                 }}
@@ -738,7 +985,7 @@ export default function Sidebar({
                 {currentStory.statHighlight}
               </span>
             </div>
-            <div style={{ fontSize: '11px', color: '#DBE5FF', lineHeight: 1.5 }}>
+            <div style={{ fontSize: '12px', color: '#272B30', lineHeight: 1.55 }}>
               {currentStory.narrative}
             </div>
           </div>
@@ -747,14 +994,13 @@ export default function Sidebar({
           <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column' }}>
             <div
               style={{
-                padding: '12px 20px 8px 20px',
+                padding: '10px 16px 8px 16px',
                 display: 'flex',
                 justifyContent: 'space-between',
-                alignItems: 'center',
-                borderBottom: '1px solid rgba(219, 229, 255, 0.1)'
+                alignItems: 'center'
               }}
             >
-              <span className="colliers-kicker" style={{ color: '#FFFFFF' }}>
+              <span className="colliers-kicker" style={{ color: '#DBE5FF' }}>
                 CANDIDATE PARKS ADVISORY RANKING
               </span>
               <button
@@ -762,49 +1008,119 @@ export default function Sidebar({
                 style={{
                   background: 'transparent',
                   border: 'none',
-                  color: '#38BDF8',
+                  color: '#DBE5FF',
                   fontSize: '11px',
                   fontWeight: 600,
-                  cursor: 'pointer'
+                  cursor: 'pointer',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 3
                 }}
               >
-                Full Matrix Modal →
+                <span>Full Matrix Modal</span>
+                <ChevronRight size={12} />
               </button>
             </div>
 
             {/* Ranked Offices */}
-            <div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 6, padding: '0 12px 12px 12px' }}>
               {(offices || []).map((office, idx) => {
                 const sc = (scorecards || []).find(s => s.officeId === office.id);
                 const isSelected = selectedOffice?.id === office.id;
                 
                 // Advisory rank tag
                 let rankLabel = 'Strategic Sub-Market';
-                let rankColor = '#94A3B8';
+                let rankColor = '#25408F';
                 if (idx === 0) {
                   rankLabel = '★ #1 RECOMMENDED LOCATION';
-                  rankColor = '#10B981';
+                  rankColor = '#059669';
                 } else if (idx === 1) {
                   rankLabel = 'TALENT MAGNET';
-                  rankColor = '#38BDF8';
+                  rankColor = '#1C54F4';
                 } else if (idx === 2) {
                   rankLabel = 'COST LEADER';
-                  rankColor = '#F59E0B';
+                  rankColor = '#D97706';
                 }
 
+                if (isSelected) {
+                  // Crisp White Selected Advisory Card
+                  return (
+                    <div
+                      key={office.id}
+                      onClick={() => onSelectOffice(office)}
+                      style={{
+                        backgroundColor: '#FFFFFF',
+                        border: '1px solid #C6D7FE',
+                        borderLeft: '4px solid #1C54F4',
+                        borderRadius: 3,
+                        padding: '12px 14px',
+                        cursor: 'pointer',
+                        boxShadow: '0 3px 10px rgba(0, 7, 89, 0.16)'
+                      }}
+                    >
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
+                        <span style={{ fontSize: '9px', fontWeight: 700, color: rankColor, letterSpacing: '0.6px' }}>
+                          {rankLabel}
+                        </span>
+                        <span className="tabular-nums" style={{ fontSize: '14px', fontWeight: 800, color: '#1C54F4' }}>
+                          ₹{office.rentPerSqft}<span style={{ fontSize: '10px', color: '#7A7B80', fontWeight: 500 }}>/sqft</span>
+                        </span>
+                      </div>
+
+                      <div style={{ fontSize: '13px', fontWeight: 700, color: '#000759' }}>
+                        {office.name}
+                      </div>
+                      <div style={{ fontSize: '11px', color: '#525255', marginTop: 1 }}>
+                        {office.microMarket} • {office.grade}
+                      </div>
+
+                      {/* Scores row with crisp light-blue pills */}
+                      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 6, marginTop: 8, fontSize: '10px' }}>
+                        <div style={{ backgroundColor: '#EDF2FF', border: '1px solid #DBE5FF', padding: '5px 6px', borderRadius: 2 }}>
+                          <div style={{ color: '#525255' }}>Commute:</div>
+                          <strong style={{ color: '#D97706' }}>{sc?.avgCommuteMins || office.avgCommuteMins}m avg</strong>
+                        </div>
+                        <div style={{ backgroundColor: '#EDF2FF', border: '1px solid #DBE5FF', padding: '5px 6px', borderRadius: 2 }}>
+                          <div style={{ color: '#525255' }}>Transit Rating:</div>
+                          <strong style={{ color: '#059669' }}>{sc?.transitAccessibilityScore || '9.0'}/10</strong>
+                        </div>
+                        <div style={{ backgroundColor: '#EDF2FF', border: '1px solid #DBE5FF', padding: '5px 6px', borderRadius: 2 }}>
+                          <div style={{ color: '#525255' }}>ESG Score:</div>
+                          <strong style={{ color: '#1C54F4' }}>{sc?.sustainabilityScore || '8.8'}/10</strong>
+                        </div>
+                      </div>
+
+                      {sc?.recommendationSummary && (
+                        <div style={{ fontSize: '11px', color: '#272B30', marginTop: 8, fontStyle: 'italic', lineHeight: 1.45, backgroundColor: '#F8F9FA', padding: '6px 8px', borderRadius: 2, borderLeft: '2px solid #DBE5FF' }}>
+                          &ldquo;{sc.recommendationSummary}&rdquo;
+                        </div>
+                      )}
+                    </div>
+                  );
+                }
+
+                // Unselected Advisory Card
                 return (
                   <div
                     key={office.id}
                     onClick={() => onSelectOffice(office)}
-                    className={`colliers-site-row ${isSelected ? 'active' : ''}`}
-                    style={{ padding: '12px 16px' }}
+                    style={{
+                      backgroundColor: 'rgba(219, 229, 255, 0.05)',
+                      border: '1px solid rgba(219, 229, 255, 0.12)',
+                      borderRadius: 3,
+                      padding: '10px 14px',
+                      cursor: 'pointer',
+                      transition: 'background-color 0.15s ease'
+                    }}
+                    onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'rgba(219, 229, 255, 0.12)')}
+                    onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'rgba(219, 229, 255, 0.05)')}
                   >
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
-                      <span style={{ fontSize: '9px', fontWeight: 700, color: rankColor, letterSpacing: '0.6px' }}>
+                      <span style={{ fontSize: '9px', fontWeight: 700, color: '#DBE5FF', letterSpacing: '0.6px' }}>
                         {rankLabel}
                       </span>
-                      <span className="tabular-nums" style={{ fontSize: '13px', fontWeight: 700, color: '#FFFFFF' }}>
-                        ₹{office.rentPerSqft}<span style={{ fontSize: '10px', color: '#94A3B8' }}>/sqft</span>
+                      <span className="tabular-nums" style={{ fontSize: '13px', fontWeight: 700, color: '#93C5FD' }}>
+                        ₹{office.rentPerSqft}<span style={{ fontSize: '10px', color: '#DBE5FF' }}>/sqft</span>
                       </span>
                     </div>
 
@@ -815,27 +1131,20 @@ export default function Sidebar({
                       {office.microMarket} • {office.grade}
                     </div>
 
-                    {/* Scores row */}
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 6, marginTop: 8, fontSize: '10px', color: '#DBE5FF' }}>
-                      <div style={{ backgroundColor: 'rgba(255,255,255,0.04)', padding: '4px 6px', borderRadius: 2 }}>
+                      <div style={{ backgroundColor: 'rgba(219, 229, 255, 0.08)', padding: '4px 6px', borderRadius: 2 }}>
                         <div>Commute:</div>
-                        <strong style={{ color: '#F59E0B' }}>{sc?.avgCommuteMins || office.avgCommuteMins}m avg</strong>
+                        <strong style={{ color: '#FCD34D' }}>{sc?.avgCommuteMins || office.avgCommuteMins}m avg</strong>
                       </div>
-                      <div style={{ backgroundColor: 'rgba(255,255,255,0.04)', padding: '4px 6px', borderRadius: 2 }}>
+                      <div style={{ backgroundColor: 'rgba(219, 229, 255, 0.08)', padding: '4px 6px', borderRadius: 2 }}>
                         <div>Transit Rating:</div>
-                        <strong style={{ color: '#00F5D4' }}>{sc?.transitAccessibilityScore || '9.0'}/10</strong>
+                        <strong style={{ color: '#6EE7B7' }}>{sc?.transitAccessibilityScore || '9.0'}/10</strong>
                       </div>
-                      <div style={{ backgroundColor: 'rgba(255,255,255,0.04)', padding: '4px 6px', borderRadius: 2 }}>
+                      <div style={{ backgroundColor: 'rgba(219, 229, 255, 0.08)', padding: '4px 6px', borderRadius: 2 }}>
                         <div>ESG Score:</div>
-                        <strong style={{ color: '#10B981' }}>{sc?.sustainabilityScore || '8.8'}/10</strong>
+                        <strong style={{ color: '#93C5FD' }}>{sc?.sustainabilityScore || '8.8'}/10</strong>
                       </div>
                     </div>
-
-                    {sc?.recommendationSummary && (
-                      <div style={{ fontSize: '11px', color: '#CBD5E1', marginTop: 8, fontStyle: 'italic', lineHeight: 1.4 }}>
-                        "{sc.recommendationSummary}"
-                      </div>
-                    )}
                   </div>
                 );
               })}
@@ -845,7 +1154,7 @@ export default function Sidebar({
           {/* Bottom Action Footer */}
           <div
             style={{
-              padding: '12px 20px',
+              padding: '12px 16px',
               borderTop: '1px solid rgba(219, 229, 255, 0.16)',
               backgroundColor: 'rgba(0, 7, 89, 0.85)',
               display: 'flex',
@@ -858,11 +1167,23 @@ export default function Sidebar({
             </div>
             <button
               onClick={onOpenComparison}
-              className="colliers-btn-secondary"
-              style={{ height: '30px', padding: '0 12px', fontSize: '11px', color: '#FFFFFF', backgroundColor: 'rgba(28, 84, 244, 0.35)' }}
+              style={{
+                height: '30px',
+                padding: '0 12px',
+                fontSize: '11px',
+                fontWeight: 600,
+                color: '#000759',
+                backgroundColor: '#EDF2FF',
+                border: '1px solid #DBE5FF',
+                borderRadius: 3,
+                cursor: 'pointer',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 4
+              }}
             >
               <span>Open Matrix Modal</span>
-              <span>→</span>
+              <ChevronRight size={12} />
             </button>
           </div>
         </>
@@ -877,28 +1198,47 @@ export default function Sidebar({
           <div
             style={{
               padding: '16px 20px 14px 20px',
-              borderBottom: '1px solid rgba(219, 229, 255, 0.14)',
-              backgroundColor: 'rgba(37, 64, 143, 0.12)'
+              borderBottom: '1px solid rgba(219, 229, 255, 0.18)',
+              backgroundColor: 'rgba(219, 229, 255, 0.08)'
             }}
           >
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
               <div className="colliers-kicker" style={{ color: '#DBE5FF' }}>
                 WORKFORCE DATABASE ({filteredEmployees.length})
               </div>
-              <span style={{ fontSize: '11px', color: '#DBE5FF' }}>
-                Metro: <strong style={{ color: '#FFFFFF' }}>{selectedCity.name}</strong>
+              <span
+                style={{
+                  fontSize: '11px',
+                  color: '#000759',
+                  backgroundColor: '#EDF2FF',
+                  border: '1px solid #DBE5FF',
+                  padding: '2px 8px',
+                  borderRadius: 2
+                }}
+              >
+                Metro: <strong style={{ color: '#000759' }}>{selectedCity.name}</strong>
               </span>
             </div>
 
             <div style={{ position: 'relative', marginBottom: 10 }}>
-              <Search size={14} color="#DBE5FF" style={{ position: 'absolute', top: 10, left: 10 }} />
+              <Search size={14} color="#1C54F4" style={{ position: 'absolute', top: 10, left: 10 }} />
               <input
                 type="text"
-                placeholder="Search name, ID, locality, pincode..."
+                placeholder="Search name, ID, locality, department..."
                 value={employeeSearch}
                 onChange={(e) => setEmployeeSearch(e.target.value)}
-                className="colliers-input colliers-input-dark"
-                style={{ height: '34px', paddingLeft: '32px', fontSize: '12px' }}
+                style={{
+                  width: '100%',
+                  height: '34px',
+                  paddingLeft: '32px',
+                  paddingRight: '28px',
+                  fontSize: '12px',
+                  backgroundColor: '#FFFFFF',
+                  color: '#000759',
+                  border: '1px solid #DBE5FF',
+                  borderRadius: 3,
+                  outline: 'none'
+                }}
               />
               {employeeSearch && (
                 <button
@@ -909,7 +1249,7 @@ export default function Sidebar({
                     right: 8,
                     background: 'transparent',
                     border: 'none',
-                    color: '#DBE5FF',
+                    color: '#525255',
                     cursor: 'pointer'
                   }}
                 >
@@ -928,11 +1268,11 @@ export default function Sidebar({
                     padding: '3px 8px',
                     fontSize: '10px',
                     borderRadius: 2,
-                    border: selectedModeFilter === mode ? '1px solid #1C54F4' : '1px solid rgba(219, 229, 255, 0.2)',
-                    backgroundColor: selectedModeFilter === mode ? 'rgba(28, 84, 244, 0.35)' : 'transparent',
-                    color: selectedModeFilter === mode ? '#FFFFFF' : '#DBE5FF',
+                    border: selectedModeFilter === mode ? '1px solid #FFFFFF' : '1px solid rgba(219, 229, 255, 0.25)',
+                    backgroundColor: selectedModeFilter === mode ? '#FFFFFF' : 'rgba(219, 229, 255, 0.12)',
+                    color: selectedModeFilter === mode ? '#000759' : '#DBE5FF',
                     cursor: 'pointer',
-                    fontWeight: selectedModeFilter === mode ? 600 : 400
+                    fontWeight: selectedModeFilter === mode ? 700 : 500
                   }}
                 >
                   {mode}
@@ -950,11 +1290,11 @@ export default function Sidebar({
                     padding: '3px 8px',
                     fontSize: '10px',
                     borderRadius: 2,
-                    border: selectedDurationFilter === dur ? '1px solid #10B981' : '1px solid rgba(219, 229, 255, 0.2)',
-                    backgroundColor: selectedDurationFilter === dur ? 'rgba(16, 185, 129, 0.25)' : 'transparent',
-                    color: selectedDurationFilter === dur ? '#FFFFFF' : '#DBE5FF',
+                    border: selectedDurationFilter === dur ? '1px solid #10B981' : '1px solid rgba(219, 229, 255, 0.25)',
+                    backgroundColor: selectedDurationFilter === dur ? '#EDF2FF' : 'rgba(219, 229, 255, 0.12)',
+                    color: selectedDurationFilter === dur ? '#000759' : '#DBE5FF',
                     cursor: 'pointer',
-                    fontWeight: selectedDurationFilter === dur ? 600 : 400
+                    fontWeight: selectedDurationFilter === dur ? 700 : 500
                   }}
                 >
                   {dur}
@@ -963,25 +1303,31 @@ export default function Sidebar({
             </div>
           </div>
 
-          {/* Active Employee Single Isolation Banner */}
+          {/* Active Employee Single Isolation Banner: Crisp White Card */}
           {selectedEmployee && (
             <div
               style={{
-                padding: '10px 16px',
-                backgroundColor: 'rgba(5, 150, 105, 0.2)',
-                borderBottom: '1px solid rgba(5, 150, 105, 0.4)',
-                borderLeft: '3px solid #10B981',
+                margin: '10px 14px',
+                padding: '12px 14px',
+                backgroundColor: '#FFFFFF',
+                border: '1px solid #10B981',
+                borderLeft: '4px solid #10B981',
+                borderRadius: 3,
+                boxShadow: '0 2px 6px rgba(0, 7, 89, 0.12)',
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center'
               }}
             >
               <div>
-                <div style={{ fontSize: '10px', fontWeight: 700, color: '#10B981', textTransform: 'uppercase' }}>
+                <div style={{ fontSize: '10px', fontWeight: 700, color: '#059669', textTransform: 'uppercase' }}>
                   DOORSTEP ROUTE ISOLATED
                 </div>
-                <div style={{ fontSize: '12px', fontWeight: 600, color: '#FFFFFF' }}>
+                <div style={{ fontSize: '13px', fontWeight: 700, color: '#000759' }}>
                   {selectedEmployee.fullName} ({selectedEmployee.employeeId})
+                </div>
+                <div style={{ fontSize: '11px', color: '#525255' }}>
+                  {selectedEmployee.residentialLocality || selectedEmployee.residentialAddress}
                 </div>
               </div>
               <button
@@ -989,7 +1335,7 @@ export default function Sidebar({
                 style={{
                   background: 'transparent',
                   border: 'none',
-                  color: '#DBE5FF',
+                  color: '#7A7B80',
                   fontSize: '11px',
                   cursor: 'pointer',
                   textDecoration: 'underline'
@@ -1006,48 +1352,101 @@ export default function Sidebar({
               style={{
                 padding: '8px 16px',
                 fontSize: '10px',
-                color: '#94A3B8',
-                borderBottom: '1px solid rgba(219, 229, 255, 0.08)',
+                color: '#DBE5FF',
+                borderBottom: '1px solid rgba(219, 229, 255, 0.12)',
                 display: 'flex',
                 justifyContent: 'space-between'
               }}
             >
-              <span>Click any record to isolate route on map</span>
-              <span className="tabular-nums">Showing {filteredEmployees.length} of {cityEmployees.length}</span>
+              <span>Click record to isolate corridor on map</span>
+              <span className="tabular-nums" style={{ color: '#FFFFFF', fontWeight: 600 }}>Showing {filteredEmployees.length} of {cityEmployees.length}</span>
             </div>
 
-            <div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 4, padding: '6px 12px' }}>
               {filteredEmployees.slice(0, 100).map((emp) => {
                 const isSelected = selectedEmployee?.employeeId === emp.employeeId;
 
-                // Mode icon or badge
                 const modeLower = (emp.commuteMode || '').toLowerCase();
                 const isRail = modeLower.includes('metro') || modeLower.includes('train');
                 const isBus = modeLower.includes('bus');
 
+                if (isSelected) {
+                  return (
+                    <div
+                      key={emp.employeeId}
+                      onClick={() => onSelectEmployee(null)}
+                      style={{
+                        backgroundColor: '#FFFFFF',
+                        border: '1px solid #10B981',
+                        borderLeft: '4px solid #10B981',
+                        borderRadius: 3,
+                        padding: '10px 12px',
+                        cursor: 'pointer',
+                        boxShadow: '0 2px 6px rgba(0, 7, 89, 0.12)'
+                      }}
+                    >
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                        <div>
+                          <div style={{ fontSize: '13px', fontWeight: 700, color: '#000759' }}>
+                            {emp.fullName}
+                          </div>
+                          <div style={{ fontSize: '10px', color: '#525255', marginTop: 1 }}>
+                            {emp.employeeId} • {emp.department}
+                          </div>
+                        </div>
+                        <div style={{ textAlign: 'right' }}>
+                          <span className="tabular-nums" style={{ fontSize: '13px', fontWeight: 800, color: '#059669' }}>
+                            {emp.commuteDurationMins}m
+                          </span>
+                          <div className="tabular-nums" style={{ fontSize: '10px', color: '#525255' }}>
+                            {emp.commuteDistanceKm} km
+                          </div>
+                        </div>
+                      </div>
+
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 6 }}>
+                        <div style={{ fontSize: '11px', color: '#000759', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: '240px' }}>
+                          {emp.residentialLocality || emp.residentialAddress}
+                        </div>
+                        <span
+                          style={{
+                            fontSize: '9px',
+                            fontWeight: 700,
+                            padding: '2px 6px',
+                            borderRadius: 2,
+                            backgroundColor: '#EDF2FF',
+                            color: '#1C54F4',
+                            border: '1px solid #C6D7FE'
+                          }}
+                        >
+                          {emp.commuteMode}
+                        </span>
+                      </div>
+                    </div>
+                  );
+                }
+
                 return (
                   <div
                     key={emp.employeeId}
-                    onClick={() => {
-                      if (isSelected) {
-                        onSelectEmployee(null);
-                      } else {
-                        onSelectEmployee(emp);
-                      }
-                    }}
-                    className={`colliers-site-row ${isSelected ? 'active' : ''}`}
+                    onClick={() => onSelectEmployee(emp)}
                     style={{
-                      padding: '10px 16px',
-                      backgroundColor: isSelected ? 'rgba(5, 150, 105, 0.25)' : 'transparent',
-                      borderLeft: isSelected ? '3px solid #10B981' : '3px solid transparent'
+                      backgroundColor: 'rgba(219, 229, 255, 0.05)',
+                      border: '1px solid rgba(219, 229, 255, 0.1)',
+                      borderRadius: 3,
+                      padding: '8px 12px',
+                      cursor: 'pointer',
+                      transition: 'background-color 0.15s ease'
                     }}
+                    onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'rgba(219, 229, 255, 0.12)')}
+                    onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'rgba(219, 229, 255, 0.05)')}
                   >
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                       <div>
-                        <div style={{ fontSize: '13px', fontWeight: 600, color: '#FFFFFF' }}>
+                        <div style={{ fontSize: '12px', fontWeight: 600, color: '#FFFFFF' }}>
                           {emp.fullName}
                         </div>
-                        <div style={{ fontSize: '10px', color: '#94A3B8', marginTop: 1 }}>
+                        <div style={{ fontSize: '10px', color: '#DBE5FF', marginTop: 1 }}>
                           {emp.employeeId} • {emp.department}
                         </div>
                       </div>
@@ -1057,30 +1456,29 @@ export default function Sidebar({
                           style={{
                             fontSize: '12px',
                             fontWeight: 700,
-                            color: emp.commuteDurationMins <= 30 ? '#10B981' : emp.commuteDurationMins <= 45 ? '#1C54F4' : '#E11D48'
+                            color: emp.commuteDurationMins <= 30 ? '#6EE7B7' : emp.commuteDurationMins <= 45 ? '#93C5FD' : '#FDA4AF'
                           }}
                         >
                           {emp.commuteDurationMins}m
                         </span>
-                        <div className="tabular-nums" style={{ fontSize: '10px', color: '#94A3B8' }}>
+                        <div className="tabular-nums" style={{ fontSize: '10px', color: '#DBE5FF' }}>
                           {emp.commuteDistanceKm} km
                         </div>
                       </div>
                     </div>
 
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 6 }}>
-                      <div style={{ fontSize: '11px', color: '#DBE5FF', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: '240px' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 4 }}>
+                      <div style={{ fontSize: '10px', color: '#DBE5FF', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: '240px' }}>
                         {emp.residentialLocality || emp.residentialAddress}
                       </div>
                       <span
                         style={{
                           fontSize: '9px',
                           fontWeight: 600,
-                          padding: '2px 6px',
+                          padding: '1px 5px',
                           borderRadius: 2,
-                          backgroundColor: isRail ? 'rgba(0, 245, 212, 0.15)' : isBus ? 'rgba(245, 158, 11, 0.15)' : 'rgba(28, 84, 244, 0.15)',
-                          color: isRail ? '#00F5D4' : isBus ? '#F59E0B' : '#38BDF8',
-                          border: '1px solid rgba(255, 255, 255, 0.12)'
+                          backgroundColor: 'rgba(219, 229, 255, 0.15)',
+                          color: '#DBE5FF'
                         }}
                       >
                         {emp.commuteMode}
@@ -1092,7 +1490,7 @@ export default function Sidebar({
             </div>
 
             {filteredEmployees.length > 100 && (
-              <div style={{ padding: '12px 16px', textAlign: 'center', fontSize: '11px', color: '#94A3B8' }}>
+              <div style={{ padding: '10px 16px', textAlign: 'center', fontSize: '11px', color: '#DBE5FF' }}>
                 Showing first 100 matching staff. Use search or open master spreadsheet for full dataset.
               </div>
             )}
@@ -1102,16 +1500,16 @@ export default function Sidebar({
           {onOpenDatabase && (
             <div
               style={{
-                padding: '12px 20px',
+                padding: '12px 16px',
                 borderTop: '1px solid rgba(219, 229, 255, 0.16)',
-                backgroundColor: 'rgba(0, 7, 89, 0.85)',
+                backgroundColor: 'rgba(0, 7, 89, 0.95)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between'
               }}
             >
               <div>
-                <div style={{ fontSize: '11px', fontWeight: 600, color: '#FFFFFF' }}>
+                <div style={{ fontSize: '11px', fontWeight: 700, color: '#FFFFFF' }}>
                   Full 1,500 Workforce Grid
                 </div>
                 <div style={{ fontSize: '10px', color: '#DBE5FF' }}>
@@ -1120,16 +1518,66 @@ export default function Sidebar({
               </div>
               <button
                 onClick={onOpenDatabase}
-                className="colliers-btn-secondary"
-                style={{ height: '28px', padding: '0 10px', fontSize: '11px', color: '#FFFFFF', backgroundColor: 'rgba(28, 84, 244, 0.35)' }}
+                style={{
+                  height: '28px',
+                  padding: '0 10px',
+                  fontSize: '11px',
+                  fontWeight: 600,
+                  color: '#000759',
+                  backgroundColor: '#EDF2FF',
+                  border: '1px solid #DBE5FF',
+                  borderRadius: 2,
+                  cursor: 'pointer',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 4
+                }}
               >
                 <span>Spreadsheet</span>
-                <span>→</span>
+                <ChevronRight size={12} />
               </button>
             </div>
           )}
         </>
       )}
+
+      {/* Persistent Bottom User Guide Launcher for Ms. Vijaya */}
+      <div
+        style={{
+          padding: '9px 16px',
+          borderTop: '1px solid rgba(219, 229, 255, 0.18)',
+          backgroundColor: '#000759',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between'
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <Compass size={14} color="#DBE5FF" />
+          <span style={{ fontSize: '11px', color: '#DBE5FF', fontWeight: 600 }}>
+            User Guide (Ms. Vijaya)
+          </span>
+        </div>
+        <button
+          onClick={onStartTour}
+          style={{
+            backgroundColor: '#EDF2FF',
+            border: '1px solid #C6D7FE',
+            color: '#000759',
+            fontSize: '10px',
+            fontWeight: 700,
+            padding: '4px 10px',
+            borderRadius: 2,
+            cursor: 'pointer',
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 4
+          }}
+        >
+          <span>Guided Tour</span>
+          <ChevronRight size={12} />
+        </button>
+      </div>
     </aside>
   );
 }
