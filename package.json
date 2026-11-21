@@ -1,0 +1,24 @@
+{
+  "name": "colliers-commute",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Colliers Commute - Enterprise Location Intelligence & Commute Analytics Platform",
+  "scripts": {
+    "dev": "npm --prefix frontend run dev",
+    "build": "npm --prefix frontend run build",
+    "preview": "npm --prefix frontend run preview",
+    "start": "npm --prefix frontend run preview"
+  },
+  "keywords": [
+    "colliers",
+    "commercial-real-estate",
+    "commute-analytics",
+    "gis",
+    "deckgl",
+    "maplibre",
+    "location-intelligence",
+    "isochrones"
+  ],
+  "author": "Haroon",
+  "license": "MIT"
+}

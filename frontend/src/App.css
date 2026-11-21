@@ -1,0 +1,555 @@
+/* ==========================================================================
+   COLLIERS ENTERPRISE DIGITAL DESIGN SYSTEM
+   Professional Commercial Real Estate Component Specifications
+   Restrained, Information-Dense, Crisp Geometry (0-4px radius), Tabular Metrics
+   ========================================================================== */
+
+:root {
+  /* 1. Official Colliers Color Tokens */
+  --colliers-primary-deep-blue:   #000759; /* Brand header & deepest surface */
+  --colliers-primary-dark-blue:   #25408F; /* Brand accent, keylines & secondary emphasis */
+  --colliers-primary-medium-blue: #1C54F4; /* Primary actions & active states */
+  --colliers-primary-light-blue:  #DBE5FF; /* Subtle active tint */
+  --colliers-primary-pale-blue:   #EDF2FF; /* Subtle light hover surfaces */
+
+  /* 2. Secondary & Neutral Palette */
+  --colliers-neutral-10: #000000;
+  --colliers-neutral-9:  #272B30; /* Primary body text */
+  --colliers-neutral-8:  #525255; /* Secondary text */
+  --colliers-neutral-7:  #7A7B80; /* Muted text / captions */
+  --colliers-neutral-6:  #A3A4AA; /* Placeholders */
+  --colliers-neutral-5:  #CCCDD5; /* Standard component borders */
+  --colliers-neutral-3:  #EBEBEE; /* Subtle horizontal dividers */
+  --colliers-neutral-2:  #F5F5F7; /* Secondary surface */
+  --colliers-neutral-1:  #F8F9FA; /* Master light background */
+  --colliers-neutral-0:  #FFFFFF; /* White surfaces */
+  --colliers-secondary-light-grey: #FFFFFF; /* High-contrast white text for dark blue surfaces */
+
+  /* 3. Semantic Status & Catchment Accents (Restrained) */
+  --colliers-emerald:    #059669; /* Prime catchment <30m */
+  --colliers-blue:       #1C54F4; /* Optimal catchment 30-45m */
+  --colliers-amber:      #D97706; /* Extended catchment 45-60m */
+  --colliers-red:        #DC2626; /* Friction >60m */
+  --colliers-teal:       #00F5D4;
+  --colliers-yellow:     #FEE440;
+  --colliers-pink:       #F72585;
+  --colliers-purple:     #7209B7;
+
+  /* 4. Enterprise Component Geometry Specifications */
+  --colliers-radius-xs: 2px;
+  --colliers-radius-sm: 3px;
+  --colliers-radius-md: 4px;
+  --colliers-radius-lg: 6px;
+
+  --colliers-nav-height: 56px;
+  --colliers-btn-height: 36px;
+  --colliers-input-height: 36px;
+  --colliers-row-height: 40px;
+
+  /* 5. Restrained Elevation (Subtle separation, no heavy shadows) */
+  --colliers-shadow-xs: 0 1px 2px rgba(0, 7, 89, 0.05);
+  --colliers-shadow-s:  0 1px 3px rgba(0, 7, 89, 0.08);
+  --colliers-shadow-m:  0 4px 12px rgba(0, 7, 89, 0.12);
+  --colliers-shadow-l:  0 8px 24px rgba(0, 7, 89, 0.16);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: var(--colliers-neutral-1);
+  color: var(--colliers-neutral-9);
+  overflow: hidden;
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Tabular Numerals for all financial, distance, duration, and coordinate figures */
+.tabular-nums,
+.num,
+.mono {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+.mono {
+  font-family: 'JetBrains Mono', 'Roboto Mono', monospace;
+}
+
+/* ==========================================================================
+   ENTERPRISE TYPOGRAPHY HIERARCHY (Restrained weights)
+   ========================================================================== */
+
+h1, .colliers-h1 {
+  font-size: 26px;
+  line-height: 1.25;
+  font-weight: 600;
+  letter-spacing: -0.4px;
+}
+
+h2, .colliers-h2 {
+  font-size: 20px;
+  line-height: 1.3;
+  font-weight: 600;
+  letter-spacing: -0.2px;
+}
+
+h3, .colliers-h3 {
+  font-size: 16px;
+  line-height: 1.35;
+  font-weight: 600;
+}
+
+h4, .colliers-h4 {
+  font-size: 14px;
+  line-height: 1.4;
+  font-weight: 600;
+}
+
+.colliers-caption {
+  font-size: 11px;
+  line-height: 1.35;
+  color: var(--colliers-neutral-7);
+  font-weight: 400;
+}
+
+.colliers-kicker {
+  font-size: 10px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--colliers-neutral-7);
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   BUTTONS (36px standard, 3-4px radius, clean 1px border)
+   ========================================================================== */
+
+.colliers-btn-primary {
+  height: var(--colliers-btn-height);
+  padding: 0 16px;
+  background-color: var(--colliers-primary-medium-blue);
+  color: var(--colliers-neutral-0);
+  border: 1px solid var(--colliers-primary-medium-blue);
+  border-radius: var(--colliers-radius-sm);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+  white-space: nowrap;
+}
+
+.colliers-btn-primary:hover {
+  background-color: #1240c5;
+  border-color: #1240c5;
+}
+
+.colliers-btn-primary:active {
+  background-color: #0b2da8;
+}
+
+.colliers-btn-secondary {
+  height: var(--colliers-btn-height);
+  padding: 0 14px;
+  background-color: transparent;
+  color: var(--colliers-neutral-0);
+  border: 1px solid rgba(219, 229, 255, 0.25);
+  border-radius: var(--colliers-radius-sm);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.colliers-btn-secondary:hover {
+  border-color: var(--colliers-primary-light-blue);
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.colliers-btn-light {
+  height: var(--colliers-btn-height);
+  padding: 0 14px;
+  background-color: #FFFFFF;
+  color: var(--colliers-neutral-9);
+  border: 1px solid var(--colliers-neutral-5);
+  border-radius: var(--colliers-radius-sm);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.colliers-btn-light:hover {
+  border-color: var(--colliers-primary-medium-blue);
+  color: var(--colliers-primary-medium-blue);
+  background-color: var(--colliers-primary-pale-blue);
+}
+
+.colliers-btn-compact {
+  height: 28px;
+  padding: 0 10px;
+  font-size: 11px;
+}
+
+/* ==========================================================================
+   INPUTS & FORM CONTROLS (36px standard, 3-4px radius, 1px border)
+   ========================================================================== */
+
+.colliers-input {
+  height: var(--colliers-input-height);
+  padding: 0 12px;
+  background-color: #FFFFFF;
+  border: 1px solid var(--colliers-neutral-5);
+  border-radius: var(--colliers-radius-sm);
+  font-size: 12px;
+  color: var(--colliers-neutral-9);
+  outline: none;
+  width: 100%;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.colliers-input:focus {
+  border-color: var(--colliers-primary-medium-blue);
+  box-shadow: 0 0 0 1px var(--colliers-primary-medium-blue);
+}
+
+.colliers-input-dark {
+  background-color: rgba(0, 7, 89, 0.6);
+  border: 1px solid rgba(219, 229, 255, 0.22);
+  color: #FFFFFF;
+}
+
+.colliers-input-dark::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+  opacity: 1;
+}
+
+.colliers-input-dark option {
+  background-color: #000759;
+  color: #FFFFFF;
+}
+
+.colliers-input-dark:focus {
+  border-color: var(--colliers-primary-medium-blue);
+  background-color: rgba(0, 7, 89, 0.9);
+  box-shadow: 0 0 0 1px var(--colliers-primary-medium-blue);
+}
+
+/* ==========================================================================
+   STRUCTURED ENTERPRISE CONTAINERS (Flat, Crisp Dividers, No Nested Cards)
+   ========================================================================== */
+
+.colliers-panel {
+  background-color: #FFFFFF;
+  border: 1px solid var(--colliers-neutral-5);
+  border-radius: var(--colliers-radius-sm);
+}
+
+.colliers-panel-dark {
+  background-color: var(--colliers-primary-deep-blue);
+  border: 1px solid rgba(219, 229, 255, 0.16);
+  border-radius: 0;
+}
+
+.colliers-divider {
+  height: 1px;
+  background-color: var(--colliers-neutral-3);
+  width: 100%;
+}
+
+.colliers-divider-dark {
+  height: 1px;
+  background-color: rgba(219, 229, 255, 0.12);
+  width: 100%;
+}
+
+/* Candidate Office Site Row (Flat row with keyline, not card-in-card) */
+.colliers-site-row {
+  padding: 12px 16px;
+  background-color: transparent;
+  border-bottom: 1px solid rgba(219, 229, 255, 0.12);
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+  position: relative;
+}
+
+.colliers-site-row:hover {
+  background-color: rgba(37, 64, 143, 0.25);
+}
+
+.colliers-site-row.active {
+  background-color: rgba(37, 64, 143, 0.45);
+  border-left: 3px solid var(--colliers-primary-medium-blue);
+  padding-left: 13px;
+}
+
+/* ==========================================================================
+   DATA TABLES (Dense, 40px rows, tabular numerals, right-aligned metrics)
+   ========================================================================== */
+
+.colliers-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  text-align: left;
+}
+
+.colliers-table th {
+  height: 36px;
+  padding: 0 12px;
+  background-color: var(--colliers-neutral-1);
+  color: var(--colliers-neutral-8);
+  font-weight: 600;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  border-bottom: 1px solid var(--colliers-neutral-5);
+  white-space: nowrap;
+}
+
+.colliers-table td {
+  height: var(--colliers-row-height);
+  padding: 0 12px;
+  border-bottom: 1px solid var(--colliers-neutral-3);
+  color: var(--colliers-neutral-9);
+  vertical-align: middle;
+}
+
+.colliers-table tr:hover td {
+  background-color: var(--colliers-primary-pale-blue);
+}
+
+.colliers-table .cell-num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+/* ==========================================================================
+   MAPLIBRE ELEMENTS & CRISP MARKERS
+   ========================================================================== */
+
+.marker-office {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.marker-pin {
+  width: 30px;
+  height: 30px;
+  border-radius: var(--colliers-radius-xs);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--colliers-primary-deep-blue);
+  color: #FFFFFF;
+  border: 1px solid var(--colliers-primary-medium-blue);
+  box-shadow: var(--colliers-shadow-s);
+  transition: transform 0.15s ease;
+}
+
+.marker-pin:hover {
+  transform: translateY(-2px);
+}
+
+.marker-pin.active {
+  background-color: var(--colliers-primary-medium-blue);
+  border-color: #FFFFFF;
+  box-shadow: 0 0 12px rgba(28, 84, 244, 0.6);
+}
+
+.marker-label {
+  margin-top: 3px;
+  background-color: #FFFFFF;
+  color: var(--colliers-primary-deep-blue);
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: var(--colliers-radius-xs);
+  border: 1px solid var(--colliers-neutral-5);
+  white-space: nowrap;
+  box-shadow: var(--colliers-shadow-xs);
+}
+
+/* Home Doorstep Marker (Single Employee Mode) */
+.marker-home {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 60;
+}
+
+.marker-home-pin {
+  width: 30px;
+  height: 30px;
+  border-radius: var(--colliers-radius-xs);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--colliers-emerald);
+  color: #FFFFFF;
+  border: 1px solid #FFFFFF;
+  box-shadow: 0 0 10px rgba(5, 150, 105, 0.6);
+}
+
+.marker-home-label {
+  margin-top: 3px;
+  background-color: var(--colliers-primary-deep-blue);
+  color: #FFFFFF;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: var(--colliers-radius-xs);
+  border: 1px solid var(--colliers-emerald);
+  white-space: nowrap;
+  box-shadow: var(--colliers-shadow-s);
+}
+
+/* Center of Gravity */
+.marker-cog {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cog-circle {
+  width: 24px;
+  height: 24px;
+  border-radius: var(--colliers-radius-xs);
+  background-color: rgba(217, 119, 6, 0.2);
+  border: 1px dashed var(--colliers-amber);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Clean MapLibre Popups */
+.maplibregl-popup-content {
+  background-color: var(--colliers-primary-deep-blue) !important;
+  color: #FFFFFF !important;
+  border: 1px solid rgba(219, 229, 255, 0.25) !important;
+  border-radius: var(--colliers-radius-sm) !important;
+  box-shadow: var(--colliers-shadow-m) !important;
+  padding: 12px 14px !important;
+}
+
+.light-popup .maplibregl-popup-content {
+  background-color: #FFFFFF !important;
+  color: var(--colliers-neutral-9) !important;
+  border: 1px solid var(--colliers-neutral-5) !important;
+  box-shadow: var(--colliers-shadow-m) !important;
+}
+
+.maplibregl-popup-anchor-top .maplibregl-popup-tip {
+  border-bottom-color: var(--colliers-primary-deep-blue) !important;
+}
+.maplibregl-popup-anchor-bottom .maplibregl-popup-tip {
+  border-top-color: var(--colliers-primary-deep-blue) !important;
+}
+.light-popup.maplibregl-popup-anchor-top .maplibregl-popup-tip {
+  border-bottom-color: #FFFFFF !important;
+}
+.light-popup.maplibregl-popup-anchor-bottom .maplibregl-popup-tip {
+  border-top-color: #FFFFFF !important;
+}
+
+/* Colliers Office Building Hover Preview Card */
+.office-hover-popup {
+  pointer-events: none !important;
+  z-index: 70 !important;
+}
+
+.office-hover-popup .maplibregl-popup-content {
+  padding: 0 !important;
+  background-color: #0B192C !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  border-radius: 4px !important;
+  overflow: hidden !important;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.25) !important;
+}
+
+.office-hover-popup.maplibregl-popup-anchor-top .maplibregl-popup-tip {
+  border-bottom-color: #0B192C !important;
+}
+
+.office-hover-popup.maplibregl-popup-anchor-bottom .maplibregl-popup-tip {
+  border-top-color: #0B192C !important;
+}
+
+.office-hover-popup.maplibregl-popup-anchor-left .maplibregl-popup-tip {
+  border-right-color: #0B192C !important;
+}
+
+.office-hover-popup.maplibregl-popup-anchor-right .maplibregl-popup-tip {
+  border-left-color: #0B192C !important;
+}
+
+/* ==========================================================================
+   CUSTOM SCROLLBAR
+   ========================================================================== */
+
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--colliers-neutral-5);
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--colliers-neutral-6);
+}
+
+/* ==========================================================================
+   CINEMATIC INTER-CITY FLIGHT ANIMATIONS
+   ========================================================================== */
+
+@keyframes radarPulse {
+  0% { transform: scale(0.9); opacity: 0.7; }
+  50% { transform: scale(1.3); opacity: 1; }
+  100% { transform: scale(0.9); opacity: 0.7; }
+}
+
+@keyframes flightProgress {
+  0% { width: 0%; }
+  100% { width: 100%; }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -10px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}

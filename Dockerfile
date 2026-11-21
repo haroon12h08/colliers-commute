@@ -1,0 +1,42 @@
+# Multi-stage Dockerfile for Colliers Commute Frontend
+FROM node:20-alpine AS build
+
+WORKDIR /app
+COPY frontend/package*.json ./
+RUN npm ci
+
+COPY frontend/ ./
+RUN npm run build
+
+# Stage 2: Production Nginx Server
+FROM nginx:alpine
+
+COPY --from=build /app/dist /usr/share/nginx/html
+
+# Custom Nginx configuration for SPA routing & gzip
+RUN cat <<'EOF' > /etc/nginx/conf.d/default.conf
+server {
+    listen 80;
+    server_name localhost;
+
+    root /usr/share/nginx/html;
+    index index.html;
+
+    gzip on;
+    gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript;
+
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+
+    # Cache static assets
+    location ~* \.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot)$ {
+        expires 1y;
+        add_header Cache-Control "public, no-transform";
+    }
+}
+EOF
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]

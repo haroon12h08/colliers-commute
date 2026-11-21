@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  colliers-commute-ui:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"
+    restart: always
+    environment:
+      - NODE_ENV=production
